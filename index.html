@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spesial buat wapik cantik:></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Caveat:wght@700&display=swap');
+
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ff758f;
+            --accent: #ffb4c2;
+            --dark: #0f172a;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--dark); 
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        body.is-loading {
+            overflow: hidden;
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 80vw;
+            height: 80vw;
+            background: radial-gradient(circle, rgba(255, 77, 109, 0.1) 0%, rgba(15, 23, 42, 0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+            filter: blur(60px);
+            pointer-events: none;
+        }
+
+        /* --- MODERN LOADING SCREEN --- */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: var(--dark);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-visual {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .orbit {
+            position: absolute;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin var(--d) linear infinite;
+        }
+
+        .orbit-1 { width: 100%; height: 100%; --d: 2s; opacity: 0.3; }
+        .orbit-2 { width: 70%; height: 70%; --d: 1.5s; border-top-color: var(--secondary); opacity: 0.6; }
+        .orbit-3 { width: 40%; height: 40%; --d: 1s; border-top-color: white; }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loader-heart-center {
+            font-size: 1.5rem;
+            filter: drop-shadow(0 0 10px var(--primary));
+        }
+
+        #loader-text {
+            margin-top: 40px;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            font-weight: 600;
+            height: 1.5rem;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.7);
+            border-radius: 3rem;
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 450px;
+            transform-origin: center;
+        }
+
+        .handwritten { font-family: 'Caveat', cursive; }
+
+        .character-box {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto;
+        }
+
+        .cat-head { animation: bob 4s ease-in-out infinite; }
+        @keyframes bob {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-12px) scale(1.02) rotate(3deg); }
+        }
+
+        #noBtn { 
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 100;
+        }
+
+        .btn-love {
+            background: linear-gradient(135deg, #ff4d6d 0%, #c9184a 100%);
+            box-shadow: 0 15px 35px -5px rgba(255, 77, 109, 0.4);
+        }
+
+        .wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 3rem 1.5rem;
+        }
+
+        .typewriter-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: var(--primary);
+            margin-left: 2px;
+            animation: blink 0.7s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* --- BIG LOVE ANIMATION --- */
+        .big-heart-svg {
+            width: 250px;
+            height: 250px;
+            filter: drop-shadow(0 0 30px rgba(255, 77, 109, 0.6));
+            animation: pulse-heart 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-heart {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .heart-name {
+            font-size: 2.5rem;
+            font-weight: 900;
+            fill: white;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body class="is-loading">
+
+    <!-- MODERN LOADING SCREEN -->
+    <div id="loader">
+        <div class="loader-visual">
+            <div class="orbit orbit-1"></div>
+            <div class="orbit orbit-2"></div>
+            <div class="orbit orbit-3"></div>
+            <div class="loader-heart-center">💖</div>
+        </div>
+        <div id="loader-text" class="uppercase"></div>
+    </div>
+
+    <!-- Background Decoration -->
+    <div class="bg-glow top-0 left-0"></div>
+    <div class="bg-glow bottom-0 right-10"></div>
+
+    <div class="wrapper">
+        <!-- Main Card -->
+        <main id="main-content" class="glass-card p-10 md:p-14 opacity-0 scale-95 blur-xl">
+            
+            <!-- Character Animation -->
+            <div class="character-box mb-8">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cat-head">
+                    <circle cx="100" cy="100" r="80" fill="#fecdd3" />
+                    <path d="M50 40 L80 80 L30 80 Z" fill="#fecdd3" />
+                    <path d="M150 40 L120 80 L170 80 Z" fill="#fecdd3" />
+                    <circle cx="70" cy="100" r="8" fill="#4c0519" />
+                    <circle cx="130" cy="100" r="8" fill="#4c0519" />
+                    <circle cx="60" cy="120" r="10" fill="#ff4d6d" opacity="0.4" />
+                    <circle cx="140" cy="120" r="10" fill="#ff4d6d" opacity="0.4" />
+                    <path d="M90 130 Q100 140 110 130" stroke="#4c0519" stroke-width="3" fill="none" />
+                </svg>
+                <div class="absolute -top-2 -right-2 text-4xl animate-bounce">❤️</div>
+            </div>
+
+            <div class="text-center">
+                <h2 class="text-pink-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-3">Wafiq Bocil</h2>
+                <h1 class="text-4xl font-extrabold mb-6 tracking-tight">Hiii<span class="text-pink-500">saayaaanggg</span></h1>
+                
+                <div class="space-y-5 text-gray-300 text-sm leading-relaxed mb-10">
+                    <p>
+                        sayaaangg maaafinn akuu yaaaa, akku udaaaa bentak bentak sama marahin kamuu yg soal wa kamu di <span class="text-white font-bold italic border-b border-pink-500/50">Arsip</span> sama akuu ga <span class="text-white font-bold border-b border-pink-500/50">Pin</span>. 
+                    </p>
+                    <p>
+                        akuuu jaaannjiii ga ngulanginn laagii sayaaangg maaaaffinn yyyyaaaa canntikknyaa akkuuuu. 🥺
+                    </p>
+                </div>
+
+                <!-- Choice UI -->
+                <div id="choice-ui" class="space-y-4">
+                    <button id="yesBtn" class="btn-love w-full text-white py-5 rounded-2xl font-bold text-lg shadow-2xl transition-all">
+                        iyyyyaaaaa saaayyyaaanggkuu aalippp gannnteeengg akuuu maaaffiinn ❤️
+                    </button>
+                    <button id="noBtn" class="w-full bg-slate-800/50 text-gray-400 py-4 rounded-2xl font-bold border border-white/5 hover:bg-slate-800 transition-colors">
+                        gamau mls
+                    </button>
+                </div>
+
+                <!-- Final Result UI -->
+                <div id="final-ui" class="hidden flex flex-col items-center">
+                    <!-- Big Heart with Name -->
+                    <div class="mb-6 scale-0 opacity-0" id="big-heart-container">
+                        <svg viewBox="0 0 200 200" class="big-heart-svg">
+                            <path d="M100 170c-30-30-80-60-80-100 0-30 20-50 50-50 20 0 30 10 30 10s10-10 30-10c30 0 50 20 50 50 0 40-50 70-80 100z" fill="#ff4d6d"/>
+                            <text x="100" y="95" class="heart-name">WAFIQ</text>
+                        </svg>
+                    </div>
+                    
+                    <h2 class="text-4xl handwritten text-pink-400 mb-2">Loveee Youuuu Sayyaaangg</h2>
+                    <p class="text-gray-400 mb-8 italic text-sm px-4">makaaacii caanntikk uddaaa maaaafiinn akkuuu mwehehehe</p>
+                    
+                    <div class="flex justify-center space-x-4">
+                        <div class="bg-pink-500/10 p-4 rounded-2xl text-2xl border border-pink-500/20">🍕</div>
+                        <div class="bg-pink-500/10 p-4 rounded-2xl text-2xl border border-pink-500/20">🎬</div>
+                        <div class="bg-pink-500/10 p-4 rounded-2xl text-2xl border border-pink-500/20">🧸</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // --- TYPEWRITER LOADING LOGIC ---
+        const messages = [
+            "sayyyaangg tunngguu",
+            "laaaggiii loaaddinng",
+            "hehehehe",
+            "lovvuuu saaayyaangg",
+            "niii udddaaaa"
+        ];
+        
+        const loaderText = document.getElementById('loader-text');
+        let currentMsgIndex = 0;
+
+        function typeWriter(text, i, callback) {
+            if (i < text.length) {
+                loaderText.innerHTML = text.substring(0, i+1) + '<span class="typewriter-cursor"></span>';
+                setTimeout(() => typeWriter(text, i + 1, callback), 40);
+            } else {
+                setTimeout(callback, 700);
+            }
+        }
+
+        function startLoadingSequence() {
+            if (currentMsgIndex < messages.length) {
+                typeWriter(messages[currentMsgIndex], 0, () => {
+                    currentMsgIndex++;
+                    startLoadingSequence();
+                });
+            } else {
+                finishLoading();
+            }
+        }
+
+        startLoadingSequence();
+
+        function finishLoading() {
+            const tl = gsap.timeline();
+            tl.to("#loader", {
+                duration: 1.2,
+                clipPath: "circle(0% at 50% 50%)",
+                ease: "power4.inOut",
+                onComplete: () => {
+                    document.getElementById('loader').remove();
+                    document.body.classList.remove('is-loading');
+                    showContent();
+                }
+            });
+        }
+
+        function showContent() {
+            gsap.to("#main-content", {
+                duration: 1.5,
+                opacity: 1,
+                scale: 1,
+                filter: "blur(0px)",
+                ease: "expo.out"
+            });
+        }
+
+        // --- INTERACTION LOGIC ---
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const choiceUi = document.getElementById('choice-ui');
+        const finalUi = document.getElementById('final-ui');
+        const heartContainer = document.getElementById('big-heart-container');
+
+        const moveNoButton = () => {
+            const padding = 80;
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding * 2) + padding;
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding * 2) + padding;
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        };
+
+        noBtn.addEventListener('mouseenter', moveNoButton);
+        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveNoButton(); });
+
+        yesBtn.addEventListener('click', () => {
+            // Hilangkan pilihan
+            gsap.to(choiceUi, {
+                duration: 0.5,
+                opacity: 0,
+                y: 30,
+                onComplete: () => {
+                    choiceUi.style.display = 'none';
+                    finalUi.classList.remove('hidden');
+                    
+                    // Animasi Heart Gede
+                    gsap.to(heartContainer, {
+                        duration: 1.5,
+                        scale: 1,
+                        opacity: 1,
+                        ease: "elastic.out(1, 0.6)"
+                    });
+
+                    // Animasi Text & Icons
+                    gsap.from("#final-ui h2, #final-ui p, #final-ui div", { 
+                        duration: 1, 
+                        y: 20, 
+                        opacity: 0, 
+                        stagger: 0.2,
+                        ease: "power2.out" 
+                    });
+                    
+                    startCelebration();
+                }
+            });
+        });
+
+        // Background Hearts
+        function spawnHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = ['❤️', '💖', '🌸'][Math.floor(Math.random() * 3)];
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '110vh';
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            heart.style.zIndex = '5';
+            heart.style.opacity = '0.2';
+            heart.style.pointerEvents = 'none';
+            document.body.appendChild(heart);
+
+            gsap.to(heart, {
+                y: '-120vh',
+                x: (Math.random() - 0.5) * 300,
+                rotation: Math.random() * 360,
+                duration: Math.random() * 4 + 5,
+                ease: "none",
+                onComplete: () => heart.remove()
+            });
+        }
+        setInterval(spawnHeart, 700);
+
+        function startCelebration() {
+            for(let i=0; i<60; i++) {
+                setTimeout(() => {
+                    const h = document.createElement('div');
+                    h.innerHTML = ['💖', '✨', '💎', '🌸'][Math.floor(Math.random() * 4)];
+                    h.style.position = 'fixed';
+                    h.style.left = '50vw';
+                    h.style.top = '50vh';
+                    h.style.zIndex = '100';
+                    h.style.pointerEvents = 'none';
+                    document.body.appendChild(h);
+                    gsap.to(h, {
+                        x: (Math.random() - 0.5) * 1000,
+                        y: (Math.random() - 0.5) * 1000,
+                        opacity: 0,
+                        scale: 3,
+                        rotation: 720,
+                        duration: 2.5,
+                        onComplete: () => h.remove()
+                    });
+                }, i * 40);
+            }
+        }
+    </script>
+</body>
+</html>
